@@ -20,7 +20,7 @@ const newUserParams = (req, res, next) => {
     !("lastname" in userData) ||
     !("email" in userData) ||
     !("password" in userData) ||
-    !("propertyOwner" in userData) ||
+    !("isOwner" in userData) ||
     Object.keys(userData).length > 5 ||
     Object.keys(userData).length < 5
   )

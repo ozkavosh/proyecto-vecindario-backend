@@ -20,10 +20,12 @@ app.use(express.urlencoded({ extended: true }));
 
 //Routers
 const authRouter = require('./routers/authRouter');
+const dataRouter = require('./routers/dataRouter');
 app.get('/', (req, res) => {
     res.json({ status: 'ok' });
 })
 app.use('/auth', authRouter);
+app.use('/data', dataRouter);
 
 //Events
 app.on('error', (err) => console.error);
