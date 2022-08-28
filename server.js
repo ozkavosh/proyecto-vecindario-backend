@@ -1,6 +1,6 @@
-const express = require('express');
-const dotenv = require('dotenv');
-const cors = require('cors');
+const express = require("express");
+const dotenv = require("dotenv");
+const cors = require("cors");
 const app = express();
 const PORT = process.env.PORT || 8080;
 
@@ -9,27 +9,32 @@ const admin = require("firebase-admin");
 const serviceAccount = require("./config/ecommercecoderhouse-2f872-9d1109101c0e.json");
 
 admin.initializeApp({
-    credential: admin.credential.cert(serviceAccount),
+  credential: admin.credential.cert(serviceAccount),
 });
 
-//Middlewares
+//Configs
 dotenv.config();
+
+//Middlewares
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use('/public', express.static('public'));
 
 //Routers
-const authRouter = require('./routers/authRouter');
-const dataRouter = require('./routers/dataRouter');
-app.get('/', (req, res) => {
-    res.json({ status: 'ok' });
-})
-app.use('/auth', authRouter);
-app.use('/data', dataRouter);
+const authRouter = require("./routers/authRouter");
+const dataRouter = require("./routers/dataRouter");
+app.get("/", (req, res) => {
+  res.json({ status: "ok" });
+});
+app.use("/auth", authRouter);
+app.use("/data", dataRouter);
 
 //Events
-app.on('error', (err) => console.error);
+app.on("error", (err) => console.error);
 
 const server = app.listen(PORT, () => {
-    console.log(`Servidor listo y escuchando en el puerto ${server.address().port}`);
+  console.log(
+    `Servidor listo y escuchando en el puerto ${server.address().port}`
+  );
 });
